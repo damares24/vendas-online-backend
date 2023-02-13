@@ -22,6 +22,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: "postgres",
       password: "mysecretpassword",
       database: "vendasOnline",
+      synchronize: true,
+      entities: [`${__dirname}/**/*.entity{.js,.ts}`],
     }),
     UserModule
   ],
