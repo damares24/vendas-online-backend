@@ -17,6 +17,7 @@ export class UserService {
         const passwordHashed = await hash(createUserDto.password, saltOrRounds);
         return this.userRepository.save({
             ...createUserDto,
+            typeUser: 1,
             passwordHashed: passwordHashed,
         })
        
