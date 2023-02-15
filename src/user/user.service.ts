@@ -18,9 +18,9 @@ export class UserService {
         return this.userRepository.save({
             ...createUserDto,
             typeUser: 1,
-            passwordHashed: passwordHashed,
-        })
-       
+            password: passwordHashed,
+        });
+        
     }
 
     async getUserByIdUsingRelations(userId: number): Promise<UserEntity> {
