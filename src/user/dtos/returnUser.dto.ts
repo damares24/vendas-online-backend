@@ -1,5 +1,6 @@
 import { IsString } from "class-validator";
 import { UserEntity } from "../entities/user.entity";
+import { ReturnAddressDto } from "src/address/dto/returnAddress.dto";
 
 export class ReturnUserDto {
     id: number;
@@ -7,6 +8,7 @@ export class ReturnUserDto {
     email: string;
     phone: string;
     cpf: number;
+    addresses?: ReturnAddressDto[];
 
     constructor(userEntity: UserEntity){
         this.id = userEntity.id;
@@ -15,5 +17,8 @@ export class ReturnUserDto {
         this.phone = userEntity.phone;
         this.cpf = userEntity.cpf;
 
+        this.addresses = userEntity.addresses
+         ? userEntity.addresses.map((address) => new ReturnAddressDto(address)) : undefined; 
+ 
     }
 }
