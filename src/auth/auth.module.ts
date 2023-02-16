@@ -9,8 +9,8 @@ import { JwtModule } from '@nestjs/jwt';
     UserModule,
     JwtModule.registerAsync({
       useFactory: () => ({
-        secret: process.env.JWT_SECRET,
-        signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
+        secret:'senhaMuitoGrande',
+        signOptions: { expiresIn: '7d' },
       })
     }),],
   providers: [AuthService],

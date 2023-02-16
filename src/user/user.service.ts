@@ -11,7 +11,7 @@ export class UserService {
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
     ){}
-    async creareUser(createUserDto : CreateUserDto): Promise<UserEntity>{
+    async createUser(createUserDto : CreateUserDto): Promise<UserEntity>{
         const saltOrRounds = 10;
 
         const passwordHashed = await hash(createUserDto.password, saltOrRounds);
