@@ -1,11 +1,13 @@
-import { Body, Controller, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateAddressDto } from './dto/createAddress.dto';
 import { AddressService } from './address.service';
 import { AddressEntity } from './entities/address.entity';
 import { Roles } from '../decorators/roles.decorator';
 import { UserType } from '../user/enum/user-type.enum';
 import { UserId } from '../decorators/user-id.decorator';
-@Roles(UserType.User)
+import { ReturnAddressDto } from './dto/returnAddress.dto';
+
+@Roles(UserType.User, UserType.Admin)
 @Controller('address')
 export class AddressController {
     constructor(
@@ -17,9 +19,17 @@ export class AddressController {
     @UsePipes(ValidationPipe)
     async createAddress(
         @Body() createAddressDto: CreateAddressDto,
-        @UserId() userId: number): Promise<AddressEntity>{
-            console.log('userId', userId)
-        return this.addressService.createAddress(createAddressDto, userId);
+        @UserId() user_id: number): Promise<AddressEntity>{
+            console.log('user_id', user_id)
+        return this.addressService.createAddress(createAddressDto, user_id);
     }
     
+    @Get()
+    @UsePipes(ValidationPipe)
+    async findAllAddressByUserId(
+        @UserId() user_id: number): Promise<ReturnAddressDto[]>{
+        return  (await this.addressService.findAllAddressByUserId(user_id)).map(
+            (address) => new ReturnAddressDto(address),
+          );
+    }
 }

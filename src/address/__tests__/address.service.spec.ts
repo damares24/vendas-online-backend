@@ -9,6 +9,7 @@ import { UserEntityMock } from '../../user/__mocks__/user.mock';
 import { CityService } from '../../city/city.service';
 import { cityMock } from '../../city/__mocks__/city.mock';
 import { createAddressMock } from '../__mocks__/create-address.mock';
+import { UserEntity } from 'src/user/entities/user.entity';
 
 
 
@@ -38,6 +39,7 @@ describe('AddressService', () => {
           provide: getRepositoryToken(AddressEntity),
           useValue: {
             save: jest.fn().mockResolvedValue(addressMock),
+            find: jest.fn().mockResolvedValue([addressMock]),
           }
         }
       ],
@@ -78,5 +80,17 @@ describe('AddressService', () => {
     ).rejects.toThrowError();
   });
 
+  it('should return all  address to user',async () => {
+    const addresses = await service.findAllAddressByUserId(UserEntityMock.id)
+   
+    expect(addresses).toEqual([addressMock]);
+  });
+
+  it('should return not found if address registred', async () => {
+   jest.spyOn(addressRepository, 'find').mockRejectedValue(undefined)
+   
+    expect(service.findAllAddressByUserId(UserEntityMock.id),
+    ).rejects.toThrowError();
+  });
 
 });
