@@ -9,7 +9,6 @@ import { UserEntityMock } from '../../user/__mocks__/user.mock';
 import { CityService } from '../../city/city.service';
 import { cityMock } from '../../city/__mocks__/city.mock';
 import { createAddressMock } from '../__mocks__/create-address.mock';
-import { UserEntity } from 'src/user/entities/user.entity';
 
 
 
