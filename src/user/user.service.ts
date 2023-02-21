@@ -1,10 +1,11 @@
-import { BadGatewayException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadGatewayException, BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UserEntity } from './entities/user.entity';
-import { hash } from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserType } from './enum/user-type.enum';
+import { createPasswordHashed, validatePassword } from 'src/utils/password';
+import { UpdatePasswordDto } from './dtos/update-password.dto';
 
 @Injectable()
 export class UserService {
@@ -12,15 +13,17 @@ export class UserService {
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
     ){}
+
     async createUser(createUserDto : CreateUserDto): Promise<UserEntity>{
         const user = await this.findUserByEmail(createUserDto.email).catch(() => undefined);
 
         if (user) {
             throw new BadGatewayException('Email registered in system')
         }
-        const saltOrRounds = 10;
+        
 
-        const passwordHashed = await hash(createUserDto.password, saltOrRounds);
+        const passwordHashed = await createPasswordHashed(createUserDto.password);
+       
         return this.userRepository.save({
             ...createUserDto,
             typeUser: UserType.User,
@@ -74,4 +77,29 @@ export class UserService {
     
         return user;
     }
+
+    async updatePasswordUser(
+        updatePasswordDTO: UpdatePasswordDto,
+        userId: number,
+      ): Promise<UserEntity> {
+        const user = await this.findUserById(userId);
+    
+        const passwordHashed = await createPasswordHashed(
+          updatePasswordDTO.newPassword,
+        );
+    
+        const isMatch = await validatePassword(
+          updatePasswordDTO.lastPassword,
+          user.password || '',
+        );
+    
+        if (!isMatch) {
+          throw new BadRequestException('Last password invalid');
+        }
+    
+        return this.userRepository.save({
+          ...user,
+          password: passwordHashed,
+        });
+      }
 }
