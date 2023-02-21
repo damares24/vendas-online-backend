@@ -15,7 +15,7 @@ export class ProductEntity {
     @Column({ name: 'price', nullable: false})
     price: number;
 
-    @Column({ name: 'name', nullable: false})
+    @Column({ name: 'image', nullable: false})
     image: string;
 
     @CreateDateColumn({ name: 'created_at'})

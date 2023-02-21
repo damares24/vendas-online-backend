@@ -34,7 +34,7 @@ import { ProductModule } from './product/product.module';
       database: "vendasOnline",
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
       migrations: [`${__dirname}/migration/{.ts,*.js}`],
-      migrationsRun: true,
+      migrationsRun: true,  
     }),
     UserModule,
     StateModule,
