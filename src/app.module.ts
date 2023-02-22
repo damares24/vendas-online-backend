@@ -12,6 +12,7 @@ import { RolesGuard } from './guards/roles.guards';
 import { JwtModule } from '@nestjs/jwt';
 import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
+import { CartModule } from './cart/cart.module';
 
 
 @Module({
@@ -44,7 +45,8 @@ import { ProductModule } from './product/product.module';
     AuthModule,
     JwtModule,
     CategoryModule,
-    ProductModule
+    ProductModule,
+    CartModule
   ],
   controllers: [],
   providers: [
