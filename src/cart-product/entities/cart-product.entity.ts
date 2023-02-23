@@ -1,5 +1,4 @@
 import { ProductEntity } from "src/product/entities/product.entity";
-import { CategoryEntity } from "../../category/entities/category.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CartEntity } from "src/cart/entities/cart.entity";
 
