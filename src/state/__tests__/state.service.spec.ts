@@ -6,10 +6,9 @@ import { StateEntity } from '../entities/state.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { stateMock } from '../__mocks__/state.mock';
 
-
 describe('StateService', () => {
   let service: StateService;
-  let stateRepository: Repository<StateEntity>
+  let stateRepository: Repository<StateEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -19,13 +18,15 @@ describe('StateService', () => {
           provide: getRepositoryToken(StateEntity),
           useValue: {
             find: jest.fn().mockResolvedValue([stateMock]),
-          }
-        }
+          },
+        },
       ],
     }).compile();
 
     service = module.get<StateService>(StateService);
-    stateRepository = module.get<Repository<StateEntity>>(getRepositoryToken(StateEntity));
+    stateRepository = module.get<Repository<StateEntity>>(
+      getRepositoryToken(StateEntity),
+    );
   });
 
   it('should be defined', () => {
@@ -44,5 +45,4 @@ describe('StateService', () => {
 
     expect(service.getAllState()).rejects.toThrowError();
   });
-
 });

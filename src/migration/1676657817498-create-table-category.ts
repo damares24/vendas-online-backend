@@ -1,9 +1,8 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class createTableCategory1676657817498 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(`
         CREATE TABLE public.category (
             id integer NOT NULL,
             name character varying NOT NULL,
@@ -24,12 +23,11 @@ export class createTableCategory1676657817498 implements MigrationInterface {
         
         ALTER TABLE ONLY public.category ALTER COLUMN id SET DEFAULT nextval('public.category_id_seq'::regclass);
     `);
-    }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(`
             drop table public.category;
     `);
-    }
-
+  }
 }

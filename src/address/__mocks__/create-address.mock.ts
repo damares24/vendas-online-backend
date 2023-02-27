@@ -1,10 +1,10 @@
-import { cityMock } from "../../city/__mocks__/city.mock";
-import { CreateAddressDto } from "../dto/createAddress.dto";
-import { addressMock } from "./address.mock";
+import { cityMock } from '../../city/__mocks__/city.mock';
+import { CreateAddressDto } from '../dto/createAddress.dto';
+import { addressMock } from './address.mock';
 
-export const createAddressMock: CreateAddressDto ={ 
-    cep: addressMock.cep,
-    city_id: cityMock.id,
-    complement: addressMock.complement,
-    numberAddress: addressMock.numberAddress,
-}
+export const createAddressMock: CreateAddressDto = {
+  cep: addressMock.cep,
+  city_id: cityMock.id,
+  complement: addressMock.complement,
+  numberAddress: addressMock.numberAddress,
+};

@@ -1,4 +1,4 @@
-import {  Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CityEntity } from './entities/city.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -6,36 +6,34 @@ import { CacheService } from '../cache/cache.service';
 
 @Injectable()
 export class CityService {
-    constructor(
-        @InjectRepository(CityEntity)
-        private readonly cityRepository: Repository<CityEntity>,
-        
-        private readonly cacheService: CacheService
-    ){};
+  constructor(
+    @InjectRepository(CityEntity)
+    private readonly cityRepository: Repository<CityEntity>,
 
-    async getAllCitiesByStateId(state_id: number): Promise<CityEntity[]> {
-       return this.cacheService.getCache<CityEntity[]> ( `state_${state_id}`, () => 
-            this.cityRepository.find({
-                where: {
-                    state_id,
-                },
-            }),
-         );
+    private readonly cacheService: CacheService,
+  ) {}
+
+  async getAllCitiesByStateId(state_id: number): Promise<CityEntity[]> {
+    return this.cacheService.getCache<CityEntity[]>(`state_${state_id}`, () =>
+      this.cityRepository.find({
+        where: {
+          state_id,
+        },
+      }),
+    );
+  }
+
+  async findCityById(cityId: number): Promise<CityEntity> {
+    const city = await this.cityRepository.findOne({
+      where: {
+        id: cityId,
+      },
+    });
+
+    if (!city) {
+      throw new NotFoundException(`City: ${cityId} not found.`);
     }
 
-    async findCityById(cityId: number): Promise<CityEntity> {
-        const city = await this.cityRepository.findOne({
-            where: {
-                id: cityId,
-            }
-        });
-
-        if (!city) {
-            throw new NotFoundException(`City: ${cityId} not found.`);
-        }
-
-        return city;
-    }
-};
-       
-
+    return city;
+  }
+}

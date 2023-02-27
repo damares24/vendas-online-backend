@@ -28,19 +28,22 @@ describe('CartService', () => {
             insertProductInCart: jest.fn().mockResolvedValue(undefined),
             deleteProductCart: jest.fn().mockResolvedValue(returnDeleteMock),
             updateProductInCart: jest.fn().mockResolvedValue(undefined),
-          }
+          },
         },
         {
-        provide: getRepositoryToken(CartEntity),
-        useValue: {
-          save: jest.fn().mockResolvedValue(cartMock),
-          findOne: jest.fn().mockResolvedValue(cartMock),
-        }
-      }],
+          provide: getRepositoryToken(CartEntity),
+          useValue: {
+            save: jest.fn().mockResolvedValue(cartMock),
+            findOne: jest.fn().mockResolvedValue(cartMock),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<CartService>(CartService);
-    cartRepository = module.get<Repository<CartEntity>>(getRepositoryToken(CartEntity));
+    cartRepository = module.get<Repository<CartEntity>>(
+      getRepositoryToken(CartEntity),
+    );
     cartProductService = module.get<CartProductService>(CartProductService);
   });
 
@@ -53,7 +56,7 @@ describe('CartService', () => {
   it('should return delete result if delete cart', async () => {
     const spy = jest.spyOn(cartRepository, 'save');
 
-    const resultDelete =  await service.clearCart(UserEntityMock.id);
+    const resultDelete = await service.clearCart(UserEntityMock.id);
 
     expect(resultDelete).toEqual(returnDeleteMock);
     expect(spy.mock.calls[0][0]).toEqual({
@@ -64,29 +67,29 @@ describe('CartService', () => {
 
   it('should return error in finOne unidefined', async () => {
     jest.spyOn(cartRepository, 'findOne').mockResolvedValue(undefined);
-   
-    expect(service.clearCart(UserEntityMock.id)).rejects.toThrowError(NotFoundException);
-  
+
+    expect(service.clearCart(UserEntityMock.id)).rejects.toThrowError(
+      NotFoundException,
+    );
   });
 
   it('should return cart in sucess (not send relations)', async () => {
     const spy = jest.spyOn(cartRepository, 'findOne');
     const cart = await service.findCartByUserId(UserEntityMock.id);
-   
+
     expect(cart).toEqual(cartMock);
     expect(spy.mock.calls[0][0].relations).toEqual(undefined);
-  
   });
 
   it('should return cart in sucess (send relations)', async () => {
     const spy = jest.spyOn(cartRepository, 'findOne');
     const cart = await service.findCartByUserId(UserEntityMock.id, true);
-   
+
     expect(cart).toEqual(cartMock);
     expect(spy.mock.calls[0][0].relations).toEqual({
       cartProduct: {
         product: true,
-    },
+      },
     });
   });
 

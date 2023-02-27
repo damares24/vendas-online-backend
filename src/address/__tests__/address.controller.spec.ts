@@ -17,7 +17,7 @@ describe('AddressController', () => {
           useValue: {
             createAddress: jest.fn().mockResolvedValue(addressMock),
             findAllAddressByUserId: jest.fn().mockResolvedValue([addressMock]),
-          }
+          },
         },
       ],
       controllers: [AddressController],
@@ -33,17 +33,18 @@ describe('AddressController', () => {
   });
 
   it('should address Entity in createAddress', async () => {
-
-    const address =  await controller.createAddress(
+    const address = await controller.createAddress(
       createAddressMock,
-      UserEntityMock.id);
+      UserEntityMock.id,
+    );
 
     expect(address).toEqual(addressMock);
   });
 
   it('should address Entity in findAllAddressByUserId', async () => {
-
-    const addresses =  await controller.findAllAddressByUserId(UserEntityMock.id);
+    const addresses = await controller.findAllAddressByUserId(
+      UserEntityMock.id,
+    );
 
     expect(addresses).toEqual([
       {

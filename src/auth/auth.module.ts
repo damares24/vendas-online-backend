@@ -9,11 +9,12 @@ import { JwtModule } from '@nestjs/jwt';
     UserModule,
     JwtModule.registerAsync({
       useFactory: () => ({
-        secret:'senhaMuitoGrande',
+        secret: 'senhaMuitoGrande',
         signOptions: { expiresIn: '7d' },
-      })
-    }),],
+      }),
+    }),
+  ],
   providers: [AuthService],
-  controllers: [AuthController]
+  controllers: [AuthController],
 })
 export class AuthModule {}

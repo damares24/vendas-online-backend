@@ -16,7 +16,6 @@ import { CartModule } from './cart/cart.module';
 import { CartProductModule } from './cart-product/cart-product.module';
 import { Address2Controller } from './address2/address2.controller';
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,15 +28,15 @@ import { Address2Controller } from './address2/address2.controller';
       // username: process.env.DB_USERNAME,
       // password: String(process.env.DB_PASSWORD),
       // database: process.env.DB_DATABASE,
-      type: "postgres",
-      host:"localhost",
+      type: 'postgres',
+      host: 'localhost',
       port: 5432,
-      username: "postgres",
-      password: "mysecretpassword",
-      database: "vendasOnline",
+      username: 'postgres',
+      password: 'mysecretpassword',
+      database: 'vendasOnline',
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
       migrations: [`${__dirname}/migration/{.ts,*.js}`],
-      migrationsRun: true,  
+      migrationsRun: true,
     }),
     UserModule,
     StateModule,
@@ -49,7 +48,7 @@ import { Address2Controller } from './address2/address2.controller';
     CategoryModule,
     ProductModule,
     CartModule,
-    CartProductModule
+    CartProductModule,
   ],
   controllers: [Address2Controller],
   providers: [

@@ -4,7 +4,6 @@ import { AuthController } from '../auth.controller';
 import { loginUserMock } from '../__mocks__/login-user.mock';
 import { returnLoginMock } from '../__mocks__/return-login.mock';
 
-
 describe('AuthController', () => {
   let controller: AuthController;
   let authService: AuthService;
@@ -16,8 +15,7 @@ describe('AuthController', () => {
           provide: AuthService,
           useValue: {
             login: jest.fn().mockResolvedValue(returnLoginMock),
-           
-          }
+          },
         },
       ],
       controllers: [AuthController],
@@ -36,5 +34,5 @@ describe('AuthController', () => {
     const userLogin = await controller.login(loginUserMock);
 
     expect(userLogin).toEqual(returnLoginMock);
-  })
+  });
 });

@@ -1,24 +1,30 @@
-import { CartProductEntity } from "../../cart-product/entities/cart-product.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { CartProductEntity } from '../../cart-product/entities/cart-product.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity({ name: 'cart' })
 export class CartEntity {
-    @PrimaryGeneratedColumn('rowid')
-    id: number;
-    
-    @Column({ name: 'user_id', nullable: false})
-    userId: number;
+  @PrimaryGeneratedColumn('rowid')
+  id: number;
 
-    @Column({ name: 'active', nullable: false})
-    active: boolean;
+  @Column({ name: 'user_id', nullable: false })
+  userId: number;
 
-    @CreateDateColumn({ name: 'created_at'})
-    created_at: Date;
+  @Column({ name: 'active', nullable: false })
+  active: boolean;
 
-    @UpdateDateColumn({ name: 'updated_at'})
-    updated_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  created_at: Date;
 
-    @OneToMany(() => CartProductEntity, (cartProduct) => cartProduct.cart)
-    cartProduct?: CartProductEntity[];
+  @UpdateDateColumn({ name: 'updated_at' })
+  updated_at: Date;
 
+  @OneToMany(() => CartProductEntity, (cartProduct) => cartProduct.cart)
+  cartProduct?: CartProductEntity[];
 }

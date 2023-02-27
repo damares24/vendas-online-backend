@@ -8,8 +8,6 @@ import { jwtMock } from '../__mocks__/jwt.mock';
 import { loginUserMock } from '../__mocks__/login-user.mock';
 import { ReturnUserDto } from '../../user/dtos/returnUser.dto';
 
-
-
 describe('AuthService', () => {
   let service: AuthService;
   let userService: UserService;
@@ -35,7 +33,6 @@ describe('AuthService', () => {
 
     service = module.get<AuthService>(AuthService);
     userService = module.get<UserService>(UserService);
-  
   });
 
   it('should be defined', () => {
@@ -48,7 +45,7 @@ describe('AuthService', () => {
 
     expect(user).toEqual({
       accessToken: jwtMock,
-      user: new ReturnUserDto(UserEntityMock)
+      user: new ReturnUserDto(UserEntityMock),
     });
   });
 
@@ -69,7 +66,4 @@ describe('AuthService', () => {
 
     expect(service.login(loginUserMock)).rejects.toThrowError();
   });
-
- 
-
 });
