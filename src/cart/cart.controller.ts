@@ -18,13 +18,15 @@ export class CartController {
 
     @UsePipes(ValidationPipe)
     @Post()
-    async insertProductInCart(
+
+    async createCart(
      @Body() insertCart: InsertCartDto, 
      @UserId() userId: number
     ): Promise<ReturnCartDto>{
         return new ReturnCartDto(await this.cartService.insertProductInCart(insertCart, userId));
     }
 
+ 
 
     @Get()
     async findCartByUserId(@UserId() userId: number): Promise<ReturnCartDto>{
