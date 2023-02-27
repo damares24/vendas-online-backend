@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CacheService } from '../cache.service';
-import { CACHE_MANAGER } from '@nestjs/common';
+import { Cache } from 'cache-manager';
 import { UserEntityMock } from '../../user/__mocks__/user.mock';
-
+import { CACHE_MANAGER } from '@nestjs/common';
 
 describe('CacheService', () => {
   let service: CacheService;
@@ -17,14 +17,13 @@ describe('CacheService', () => {
           useValue: {
             get: () => UserEntityMock,
             set: () => jest.fn(),
-          }
-        }
+          },
+        },
       ],
     }).compile();
 
     service = module.get<CacheService>(CacheService);
     cacheManager = module.get(CACHE_MANAGER);
-   
   });
 
   it('should be defined', () => {
@@ -37,16 +36,12 @@ describe('CacheService', () => {
     expect(user).toEqual(UserEntityMock);
   });
 
-  // it('should return data in function', async () => {
-  //   const result = { test: 'tes' };
+  it('should return data in function', async () => {
+    const result = { test: 'tes' };
+    jest.spyOn(cacheManager, 'get').mockResolvedValue(undefined);
 
-  //   jest.spyOn(cacheManager, 'get').mockResolveValue(undefined);
+    const user = await service.getCache('key', () => Promise.resolve(result));
 
-  //   const user = await service.getCache('key', () => Promise.resolve(result));
-
-  //   expect(user).toEqual(result);
-  // });
-
- 
-
+    expect(user).toEqual(result);
+  });
 });
