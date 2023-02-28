@@ -9,8 +9,14 @@ import { OrderProductModule } from '../order-product/order-product.module';
 import { ProductModule } from '../product/product.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OrderEntity]), PaymentModule, CartModule, OrderProductModule, ProductModule],
+  imports: [
+    TypeOrmModule.forFeature([OrderEntity]),
+    PaymentModule,
+    CartModule,
+    OrderProductModule,
+    ProductModule,
+  ],
   controllers: [OrderController],
-  providers: [OrderService]
+  providers: [OrderService],
 })
 export class OrderModule {}

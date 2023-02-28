@@ -24,5 +24,4 @@ export class PaymentStatusEntity {
 
   @OneToMany(() => PaymentEntity, (payment) => payment.paymentStatus)
   payments?: PaymentEntity[];
-
 }

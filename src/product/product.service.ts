@@ -35,8 +35,6 @@ export class ProductService {
     return products;
   }
 
-  
-
   async createProduct(
     createProductDto: CreateProductDto,
   ): Promise<ProductEntity> {

@@ -17,7 +17,7 @@ export class PaymentPixEntity extends PaymentEntity {
     finalPrice: number,
     createOrderDTO: CreateOrderDTO,
   ) {
-    super(statusId, price,discount,finalPrice);
+    super(statusId, price, discount, finalPrice);
     this.code = createOrderDTO?.codePix || '';
     this.datePayment = new Date(createOrderDTO?.datePayment || '');
   }
