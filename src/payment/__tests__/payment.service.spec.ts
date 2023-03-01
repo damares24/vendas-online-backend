@@ -7,7 +7,10 @@ import { paymentMock } from '../__mocks__/payment.mock';
 import { productMock } from '../../product/__mocks__/product.mock';
 import { cartMock } from '../../cart/__mocks__/cart.mock';
 import { paymentPixMock } from '../__mocks__/payment-pix.mock';
-import { createOrderCreditCardMock, createOrderPixMock } from '../../order/__mocks__/create-order.mock';
+import {
+  createOrderCreditCardMock,
+  createOrderPixMock,
+} from '../../order/__mocks__/create-order.mock';
 import { PaymentPixEntity } from '../entities/payment-pix';
 import { PaymentCreditCardEntity } from '../entities/payment-credit-cart.entity';
 import { paymentCreditCardMock } from '../__mocks__/payment-credit-card.mock';
@@ -25,7 +28,7 @@ describe('PaymentService', () => {
         {
           provide: getRepositoryToken(PaymentEntity),
           useValue: {
-            save: jest.fn().mockResolvedValue(paymentMock)
+            save: jest.fn().mockResolvedValue(paymentMock),
           },
         },
         PaymentService,
@@ -58,7 +61,6 @@ describe('PaymentService', () => {
     expect(savePayment.code).toEqual(paymentPixMock.code);
     expect(savePayment.datePayment).toEqual(paymentPixMock.datePayment);
   });
-
 
   it('should save payment credit card in DB', async () => {
     const spy = jest.spyOn(paymentRepository, 'save');
@@ -137,5 +139,4 @@ describe('PaymentService', () => {
 
     expect(savePayment).toEqual(paymentCreditCard);
   });
-
 });

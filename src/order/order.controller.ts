@@ -22,7 +22,7 @@ export class OrderController {
     @Body() createOrderDTO: CreateOrderDTO,
     @Param('cartId') cartId: number,
     @UserId() userId: number,
-  ) {
+  ): Promise<OrderEntity> {
     return this.orderService.createOrder(createOrderDTO, userId);
   }
 
